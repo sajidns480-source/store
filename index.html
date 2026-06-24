@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORE ADMIN PANEL</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen font-sans pb-12">
+
+    <header class="bg-slate-950 p-4 sticky top-0 z-50 border-b border-slate-800 shadow-xl flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-user-shield text-xl text-blue-500 animate-pulse"></i>
+            <h1 class="text-lg font-black tracking-wider text-slate-100">STORE CONTROL CENTER</h1>
+        </div>
+        <span class="bg-blue-600/10 text-blue-400 border border-blue-500/20 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Admin Mode</span>
+    </header>
+
+    <main class="p-4 max-w-5xl mx-auto space-y-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <section class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-lg space-y-4">
+                <h2 class="text-xs font-bold text-blue-400 tracking-widest uppercase mb-2"><i class="fas fa-sliders-h mr-1"></i> Global Settings & Alerts</h2>
+                <form id="settings-form" class="space-y-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Fake Active Users Count</label>
+                        <input type="number" id="set-users" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500" placeholder="e.g., 520">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Admin Telegram/Contact URL</label>
+                        <input type="url" id="set-contact" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500" placeholder="https://t.me/yourusername">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Free Gift Target URL</label>
+                        <input type="url" id="set-gift" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500" placeholder="https://...">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-1"><i class="fas fa-bell mr-1"></i> User Panel Alert/Notice Text</label>
+                        <textarea id="set-notice" rows="2" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-amber-500 placeholder-slate-600 resize-none" placeholder="Type global announcement or notice for users..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs tracking-wider transition transform active:scale-[0.98] cursor-pointer">
+                        UPDATE GLOBAL CONFIG
+                    </button>
+                </form>
+            </section>
+
+            <section class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-lg space-y-4">
+                <h2 class="text-xs font-bold text-emerald-400 tracking-widest uppercase mb-2"><i class="fas fa-images mr-1"></i> App Banners Manager</h2>
+                <form id="banners-form" class="space-y-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Apps Zone Banner Image URL</label>
+                        <input type="url" id="ban-apps" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-emerald-500" placeholder="https://...">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Games Zone Banner Image URL</label>
+                        <input type="url" id="ban-games" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-emerald-500" placeholder="https://...">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Media Hub Banner Image URL</label>
+                        <input type="url" id="ban-media" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-emerald-500" placeholder="https://...">
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-black py-2 rounded-xl text-xs tracking-wider transition transform active:scale-[0.98] cursor-pointer">
+                        UPDATE STORE BANNERS
+                    </button>
+                </form>
+            </section>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <section class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-lg space-y-4 md:col-span-1">
+                <h2 class="text-xs font-bold text-rose-400 tracking-widest uppercase mb-2"><i class="fas fa-paper-plane mr-1"></i> Send Notification</h2>
+                <form id="notif-push-form" class="space-y-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Notification Title</label>
+                        <input type="text" id="notif-title" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-rose-500" placeholder="e.g., New App Updated!">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Message Description</label>
+                        <textarea id="notif-msg" rows="3" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-rose-500 resize-none" placeholder="Enter notice descriptions..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Time Indicator Tag</label>
+                        <input type="text" id="notif-time" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-rose-500" placeholder="e.g., Just Now, 5m ago, 1d ago">
+                    </div>
+                    <button type="submit" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 rounded-xl text-xs tracking-wider transition transform active:scale-[0.98] cursor-pointer">
+                        PUSH NOTIFICATION
+                    </button>
+                </form>
+            </section>
+
+            <section class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-lg md:col-span-2 flex flex-col">
+                <h2 class="text-xs font-bold text-slate-400 tracking-widest uppercase mb-3"><i class="fas fa-history mr-1"></i> Active Notifications Logs</h2>
+                <div id="admin-notif-list" class="space-y-3 max-h-72 overflow-y-auto scrollbar-none pr-1 flex-1">
+                    <p class="text-xs text-slate-500 text-center py-6 animate-pulse">Loading sent notifications...</p>
+                </div>
+            </section>
+        </div>
+
+        <section class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-xl">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-4 border-b border-slate-800 pb-3">
+                <div>
+                    <h2 class="text-sm font-bold text-amber-500 tracking-wider uppercase">User Submissions Manager</h2>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Approve or Delete live posts instantly</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="renderAdminPosts('all')" class="bg-slate-900 border border-slate-800 text-[10px] font-bold px-3 py-1 rounded-lg hover:bg-slate-800 cursor-pointer">All</button>
+                    <button onclick="renderAdminPosts('pending')" class="bg-amber-600/10 text-amber-400 border border-amber-500/20 text-[10px] font-bold px-3 py-1 rounded-lg hover:bg-amber-600/20 cursor-pointer">Pending</button>
+                    <button onclick="renderAdminPosts('approved')" class="bg-emerald-600/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold px-3 py-1 rounded-lg hover:bg-emerald-600/20 cursor-pointer">Live</button>
+                </div>
+            </div>
+
+            <div id="admin-posts-list" class="space-y-4">
+                <p class="text-xs text-slate-500 text-center py-6 animate-pulse">Syncing with Cloud Firestore database...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, addDoc, onSnapshot, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const APP_CONFIG = {
+            imgbbKeys: ["62a755dc3737e40ed1ceb45ec62df6bf", "9504e98c9c71885f4300d1ba38c8e95e"],
+            firebase: {
+                apiKey: "AIzaSyDb-jJZYrlyBPMWBp8c3gBTZplsO1CwzYg", 
+                authDomain: "story-3f265.firebaseapp.com", 
+                projectId: "story-3f265", 
+                storageBucket: "story-3f265.firebasestorage.app", 
+                messagingSenderId: "328227372864", 
+                appId: "1:328227372864:web:0b458e95ba4c95b00cc4a5" 
+            }
+        };
+
+        const firebaseApp = initializeApp(APP_CONFIG.firebase);
+        const db = getFirestore(firebaseApp);
+        let currentFetchedPosts = [];
+        let currentFilterStatus = 'all';
+
+        function syncSettingsAndBanners() {
+            onSnapshot(collection(db, "settings"), (snapshot) => {
+                snapshot.forEach(docData => {
+                    const data = docData.data();
+                    if(data.demoUsers !== undefined) document.getElementById("set-users").value = data.demoUsers;
+                    if(data.contactUrl) document.getElementById("set-contact").value = data.contactUrl;
+                    if(data.giftUrl) document.getElementById("set-gift").value = data.giftUrl;
+                    if(data.globalNotice !== undefined) document.getElementById("set-notice").value = data.globalNotice;
+                });
+            });
+
+            onSnapshot(collection(db, "banners"), (snapshot) => {
+                snapshot.forEach(docData => {
+                    const data = docData.data();
+                    if(data.appsBanner) document.getElementById("ban-apps").value = data.appsBanner;
+                    if(data.gamesBanner) document.getElementById("ban-games").value = data.gamesBanner;
+                    if(data.mediaBanner) document.getElementById("ban-media").value = data.mediaBanner;
+                });
+            });
+        }
+
+        document.getElementById("settings-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            try {
+                const usersCount = parseInt(document.getElementById("set-users").value) || 0;
+                const contactUrl = document.getElementById("set-contact").value;
+                const giftUrl = document.getElementById("set-gift").value;
+                const globalNotice = document.getElementById("set-notice").value;
+
+                await setDoc(doc(db, "settings", "global"), {
+                    demoUsers: usersCount, 
+                    contactUrl: contactUrl, 
+                    giftUrl: giftUrl,
+                    globalNotice: globalNotice
+                }, { merge: true });
+                alert("Global settings and Notice updated successfully!");
+            } catch(err) { alert(err.message); }
+        });
+
+        document.getElementById("banners-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            try {
+                const appsBanner = document.getElementById("ban-apps").value;
+                const gamesBanner = document.getElementById("ban-games").value;
+                const mediaBanner = document.getElementById("ban-media").value;
+
+                await setDoc(doc(db, "banners", "main_banners"), {
+                    appsBanner: appsBanner, gamesBanner: gamesBanner, mediaBanner: mediaBanner
+                }, { merge: true });
+                alert("Store banners updated inside database!");
+            } catch(err) { alert(err.message); }
+        });
+
+        document.getElementById("notif-push-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            try {
+                const title = document.getElementById("notif-title").value;
+                const message = document.getElementById("notif-msg").value;
+                const timeText = document.getElementById("notif-time").value || "Just Now";
+
+                await addDoc(collection(db, "notifications"), {
+                    name: title,
+                    message: message,
+                    timeText: timeText,
+                    createdAt: new Date().toISOString()
+                });
+
+                alert("Notification pushed to User Panel successfully!");
+                document.getElementById("notif-push-form").reset();
+            } catch(err) { alert(err.message); }
+        });
+
+        function startRealtimeNotifSync() {
+            const q = query(collection(db, "notifications"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const notifList = document.getElementById("admin-notif-list");
+                if(!notifList) return;
+                notifList.innerHTML = "";
+
+                if(snapshot.empty) {
+                    notifList.innerHTML = `<p class="text-xs text-slate-600 text-center py-6">No sent notifications found.</p>`;
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const notif = docSnap.data();
+                    notifList.innerHTML += `
+                        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center gap-3">
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-bold text-xs text-rose-400 truncate">${notif.name || 'Notice'}</h4>
+                                    <span class="text-[9px] text-slate-500 font-mono">${notif.timeText || ''}</span>
+                                </div>
+                                <p class="text-[11px] text-slate-300 line-clamp-1 mt-0.5">${notif.message || ''}</p>
+                            </div>
+                            <button onclick="deleteNotif('${docSnap.id}')" class="text-slate-500 hover:text-rose-500 text-xs px-2 py-1 transition cursor-pointer">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        window.deleteNotif = async function(id) {
+            if(confirm("Are you sure you want to remove this notification from User logs?")) {
+                try {
+                    await deleteDoc(doc(db, "notifications", id));
+                } catch(e) { alert(e.message); }
+            }
+        }
+
+        function startRealtimeAdminPostSync() {
+            const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                currentFetchedPosts = [];
+                snapshot.forEach(doc => {
+                    currentFetchedPosts.push({ id: doc.id, ...doc.data() });
+                });
+                renderAdminPosts(currentFilterStatus);
+            });
+        }
+
+        window.renderAdminPosts = function(status) {
+            currentFilterStatus = status;
+            const listContainer = document.getElementById("admin-posts-list");
+            listContainer.innerHTML = "";
+
+            let targetItems = currentFetchedPosts;
+            if(status === 'pending') targetItems = currentFetchedPosts.filter(i => i.approved === false);
+            if(status === 'approved') targetItems = currentFetchedPosts.filter(i => i.approved === true);
+
+            if(targetItems.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No matching items found in this section.</p>`;
+                return;
+            }
+
+            targetItems.forEach(item => {
+                const statusBadge = item.approved 
+                    ? `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold px-2 py-0.5 rounded">LIVE</span>`
+                    : `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[9px] font-bold px-2 py-0.5 rounded animate-pulse">PENDING REVIEW</span>`;
+
+                listContainer.innerHTML += `
+                    <div id="post-card-${item.id}" class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition hover:border-slate-700/80">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <img src="${item.logoUrl}" class="w-12 h-12 rounded-xl object-cover border border-slate-800 flex-shrink-0 bg-slate-950">
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="font-bold text-sm text-slate-200 truncate">${item.name}</h3>
+                                    ${statusBadge}
+                                </div>
+                                <p class="text-[10px] text-slate-400 font-medium mt-0.5 uppercase tracking-wider">Type: ${item.type} | Cat: ${item.category} | Price: ${item.price}</p>
+                                <a href="${item.url}" target="_blank" class="text-[10px] text-blue-400 hover:underline block truncate mt-1"><i class="fas fa-link mr-0.5"></i> File/Ref Link</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2 w-full md:w-auto justify-end border-t border-slate-800/60 md:border-t-0 pt-2 md:pt-0">
+                            ${!item.approved ? `
+                                <button onclick="approveItem('${item.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-bold px-4 py-1.5 rounded-lg transition shadow cursor-pointer">
+                                    <i class="fas fa-check mr-1"></i> Approve
+                                </button>
+                            ` : ''}
+                            <button id="del-btn-${item.id}" onclick="deleteItem('${item.id}')" class="bg-rose-600/10 text-rose-400 border border-rose-500/20 hover:bg-rose-600 hover:text-white text-xs font-bold px-4 py-1.5 rounded-lg transition cursor-pointer">
+                                <i class="fas fa-trash-alt mr-1"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.approveItem = async function(id) {
+            if(confirm("Are you sure you want to approve and push this post live?")) {
+                try {
+                    await updateDoc(doc(db, "posts", id), { approved: true });
+                    alert("Post approved successfully! It is now live on the store.");
+                } catch(e) { alert(e.message); }
+            }
+        }
+
+        // ImgBB থেকে সরাসরি ছবি ডিলিট করার ব্যাকএন্ড মেকানিজম
+        async function deleteImageFromImgBB(deleteUrl) {
+            if (!deleteUrl) return;
+            try {
+                // ডিলিট করার জন্য ImgBB সরাসরি কোনো স্ক্র্যাপার বা রিকোয়েস্ট এক্সেপ্ট করে, অথবা ডিলিট লিংক ওপেন করলেই হয়
+                await fetch(deleteUrl, { method: 'GET', mode: 'no-cors' });
+            } catch (err) {
+                console.error("ImgBB deletion failed for URL:", deleteUrl, err);
+            }
+        }
+
+        window.deleteItem = async function(id) {
+            const item = currentFetchedPosts.find(i => i.id === id);
+            if(!item) return;
+
+            if(confirm("🚨 WARNING: Are you sure you want to delete this item permanently from database and clear ImgBB storage?")) {
+                const delBtn = document.getElementById(`del-btn-${id}`);
+                if(delBtn) {
+                    delBtn.innerText = "Cleaning...";
+                    delBtn.disabled = true;
+                }
+
+                try {
+                    // ১. ImgBB থেকে লোগো/থাম্বনেইল ডিলিট করা
+                    if (item.logoDeleteUrl) {
+                        await deleteImageFromImgBB(item.logoDeleteUrl);
+                    }
+                    
+                    // ২. ImgBB থেকে গ্যালারি/স্ক্রিনশটগুলো ডিলিট করা
+                    if (item.screenshotDeleteUrls && Array.isArray(item.screenshotDeleteUrls)) {
+                        for (const delUrl of item.screenshotDeleteUrls) {
+                            await deleteImageFromImgBB(delUrl);
+                        }
+                    }
+
+                    // ৩. ফায়ারবেস ক্লাউড ডাটাবেইজ থেকে ডিলিট করা
+                    await deleteDoc(doc(db, "posts", id));
+                    alert("Post data and all connected images wiped successfully!");
+                } catch(e) { 
+                    alert("Database Error: " + e.message); 
+                } finally {
+                    if(delBtn) {
+                        delBtn.innerHTML = `<i class="fas fa-trash-alt mr-1"></i> Delete`;
+                        delBtn.disabled = false;
+                    }
+                }
+            }
+        }
+
+        syncSettingsAndBanners();
+        startRealtimeAdminPostSync();
+        startRealtimeNotifSync();
+    </script>
+</body>
+</html>
